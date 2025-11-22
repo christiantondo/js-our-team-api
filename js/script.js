@@ -1,60 +1,4 @@
-const teamMembers = [
-  {
-    name: "Marco Bianchi",
-    role: "Designer",
-    email: "marcobianchi@team.com",
-    img: "img/male1.png"
-  },
-  {
-    name: "Laura Rossi",
-    role: "Front-end Developer",
-    email: "laurarossi@team.com",
-    img: "img/female1.png"
-  },
-  {
-    name: "Giorgio Verdi",
-    role: "Back-end Developer",
-    email: "giorgioverdi@team.com",
-    img: "img/male2.png"
-  },
-  {
-    name: "Marta Ipsum",
-    role: "SEO Specialist",
-    email: "martarossi@team.com",
-    img: "img/female2.png"
-  },
-  {
-    name: "Roberto Lorem",
-    role: "SEO Specialist",
-    email: "robertolorem@team.com",
-    img: "img/male3.png"
-  },
-  {
-    name: "Daniela Amet",
-    role: "Analyst",
-    email: "danielaamet@team.com",
-    img: "img/female3.png"
-  }
-];
-
-
-const listElement = document.getElementById("team-container");
-let listHTML = "";
-
-/* Versione precedente con il for
-for (let i = 0; i < teamMembers.length; i++) {
-  const teamMember = teamMembers[i];
-
-  listHTML += getMemberCard(teamMember.name, teamMember.role, teamMember.img)
-
-} */
-
-// Nuova versione con il forEach
-const addElement = teamMembers.forEach(member => listHTML += (getMemberCard(member.name, member.role, member.img)))
-
-
-listElement.innerHTML = listHTML;
-
+// Funzione che aggiunge la card
 function getMemberCard(name, role, img) {
 
   return `<div class="card col-4">
@@ -65,3 +9,23 @@ function getMemberCard(name, role, img) {
             </div>
            </div>`;
 }
+
+// Recupero l'elemento dalla pagina
+const listElement = document.getElementById("team-container");
+
+// Uso axios per recuperare i dati dall'API fornito
+axios.get("https://boolean-teachers.github.io/mock/api/members/").then(response => {
+
+  const members = response.data
+  let listHTML = "";
+
+  // Stampo la lista dei memberi per maggior chiarezza e per verificare che i dati che sto ricevendo siano corretti
+  console.log("Questo è il dato ricevuto: la lista dei membri", members)
+
+  // Nuova versione con il forEach al posto del ciclo for
+  const addElement = members.forEach(member => listHTML += (getMemberCard(member.name, member.role, member.img)))
+
+  // Scrivo in pagina
+  listElement.innerHTML = listHTML;
+})
+
