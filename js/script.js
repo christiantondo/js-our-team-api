@@ -37,15 +37,21 @@ const teamMembers = [
   }
 ];
 
+
 const listElement = document.getElementById("team-container");
 let listHTML = "";
 
+/* Versione precedente con il for
 for (let i = 0; i < teamMembers.length; i++) {
   const teamMember = teamMembers[i];
 
   listHTML += getMemberCard(teamMember.name, teamMember.role, teamMember.img)
 
-}
+} */
+
+// Nuova versione con il forEach
+const addElement = teamMembers.forEach(member => listHTML += (getMemberCard(member.name, member.role, member.img)))
+
 
 listElement.innerHTML = listHTML;
 
